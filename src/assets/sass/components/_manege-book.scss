@@ -1,0 +1,54 @@
+.manege-book {
+  .bs-scroll {
+    overflow-y: auto;
+    padding-right: 0;
+  }
+  table {
+    @include media-breakpoint-down(md) {
+      overflow-x: scroll;
+    }
+    thead {
+      background-color: $color-dark;
+      color: $color-light;
+      tr {
+        th {
+          border-right: 1px solid $color-border;
+          text-align: center;
+          vertical-align: middle;
+          padding: 12px 3px;
+          min-width: 90px;
+          &:nth-child(2) {
+            min-width: 150px;
+          }
+          &:first-child {
+            border-top-left-radius: 5px;
+          }
+          &:last-child {
+            border-top-right-radius: 5px;
+          }
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          vertical-align: middle;
+          border-bottom: 1px solid $color-border;
+          border-right: 1px solid $color-border;
+          text-align: center;
+          img {
+            width: 80px;
+            height: 75px;
+            border-radius: 5px;
+            object-fit: cover;
+          }
+          .icon {
+            font-size: 20px;
+            color: $color-primary;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

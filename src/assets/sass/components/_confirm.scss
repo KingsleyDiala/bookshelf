@@ -1,0 +1,54 @@
+.confirm {
+  padding: 25px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &__close {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    cursor: pointer;
+    svg {
+      color: $color-dark;
+      font-size: 24px;
+    }
+  }
+  &__form {
+    height: calc(100vh - 140px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &.bs-scroll {
+      margin-right: -25px;
+    }
+    .title {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    input, textarea {
+      width: 100%;
+      border: none;
+      padding: 10px 15px;
+      background-color: $color-secondary;
+      transition: all 0.5s;
+      border-radius: 5px;
+      border: 2px solid transparent;
+      margin-top: 15px;
+      &:hover {
+        border: 2px solid $color-border;
+      }
+      &:focus {
+        border: 2px solid $color-dark;
+        outline: none;
+      }
+    }
+    p {
+      padding-top: 8px;
+      padding-left: 20px;
+      margin-bottom: 0;
+      color: $color-danger;
+      font-size: 14px;
+    }
+  }
+}

@@ -1,0 +1,61 @@
+.footer {
+    background-color: $color-dark;
+    color: $color-light;
+    &__top {
+        display: flex;
+        gap: 15px;
+        &--icon {
+            svg {
+                font-size: 45px;
+                color: $color-primary;
+            }
+        }
+        h3 {
+            color: $color-light;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        &--info {
+            a {
+                color: $color-light;
+                &:hover {
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+    &__bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        padding-bottom: 20px;
+        @include media-breakpoint-down(md) {
+            display: inherit;
+            text-align: center;
+        }
+        h3 {
+            font-size: 20px;
+            color: $color-light;
+            margin: 0;
+            a {
+                color: $color-light;
+                &:hover {
+                    color: $color-primary;
+                }
+            }
+            @include media-breakpoint-down(md) {
+                margin-bottom: 10px;
+            }
+        }
+        p {
+            margin: 0;
+            a {
+                color: $color-light;
+                &:hover {
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+}

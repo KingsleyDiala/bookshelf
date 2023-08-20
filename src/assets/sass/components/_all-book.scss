@@ -1,0 +1,223 @@
+.all-book {
+  &__item {
+    position: relative;
+    box-shadow: 2px 0px 15px 5px $color-shadow;
+    border-radius: 5px;
+    background-color: $color-light;
+    height: 100%;
+    &:hover {
+      .functional-icons {
+        right: 15px;
+        li {
+          opacity: 1;
+        }
+      }
+      .all-book__item__bottom {
+        transform: translateY(-65px);
+        &--button {
+          width: 100%;
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+    img {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      height: 300px;
+      width: 100%;
+      object-fit: cover;
+    }
+    &__discount {
+      position: absolute;
+      top: 20px;
+      left: 0px;
+      padding: 5px 5px;
+      border-radius: 0 7px 7px 0;
+      color: $color-light;
+      background-color: $color-primary;
+      font-size: 14px;
+      z-index: 9;
+      .on-sale {
+        position: relative;
+        content: "";
+        padding: 5px 8px;
+        &::before {
+          width: 22px;
+          height: 22px;
+          position: absolute;
+          content: "";
+          cursor: pointer;
+          top: -1px;
+          right: -17px;
+          margin: 5px;
+          border: none;
+          border-radius: 1px 1px 4px;
+          text-overflow: clip;
+          text-shadow: none;
+          transform: rotateY(1deg) rotateZ(-45deg);
+          background-color: $color-primary;
+          z-index: -1;
+        }
+      }
+    }
+    .functional-icons {
+      position: absolute;
+      top: 15px;
+      right: 0px;
+      left: auto;
+      transition: 0.5s;
+      button {
+        border: none;
+        &:focus {
+          outline: none;
+        }
+      }
+      li {
+        opacity: 0;
+        transition: 0.5s;
+        &:nth-child(1) {
+          transition-delay: 0.2s;
+        }
+        &:nth-child(2) {
+          transition-delay: 0.3s;
+        }
+        &:nth-child(3) {
+          transition-delay: 0.4s;
+        }
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+        .icon {
+          width: 35px;
+          height: 35px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: $color-primary;
+          color: $color-light;
+          border-radius: 50%;
+          transition: all 0.5s;
+          cursor: pointer;
+          svg {
+            font-size: 18px;
+          }
+          &:hover {
+            background-color: $color-dark;
+          }
+        }
+      }
+    }
+    &__bottom {
+      padding: 15px;
+      transition: all 0.4s;
+      transform: translateY(0%);
+      z-index: 99;
+      position: relative;
+      background-color: $color-light;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      
+      &--title {
+        font-size: 18px;
+        margin-bottom: 0;
+      }
+      &--subtitle {
+        font-size: 14px;
+        margin-bottom: 0;
+      }
+      &--author {
+        margin-bottom: 5px;
+        span {
+          font-weight: 500;
+          color: $color-dark;
+        }
+      }
+      .price {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        span {
+          color: $color-dark;
+        }
+      }
+      &--button {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s;
+        transform: translateY(100%);
+        padding: 0 15px 15px;
+        background-color: $color-light;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        button {
+          width: 100%;
+          span {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+          }
+        }
+        .calculation {
+          &__button {
+            button,
+            span {
+              width: 40px;
+              height: 40px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .book-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    p {
+      margin-bottom: 0;
+    }
+    &__view {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      .sort-btn {
+        border: 1px solid $color-border;
+        background-color: $color-light;
+        border-radius: 5px;
+        svg {
+          color: $color-dark;
+        }
+        &:focus {
+          outline: none;
+        }
+        &.active {
+          border: 1px solid $color-primary;
+          background-color: $color-secondary;
+          svg {
+            color: $color-primary;
+          }
+        }
+      }
+    }
+    select {
+      padding: 3px 5px;
+      border: 1px solid $color-border;
+      border-radius: 5px;
+      background-color: $color-secondary;
+      &:focus {
+        outline: none;
+      }
+      option {
+        background-color: $color-secondary;
+      }
+    }
+  }
+}

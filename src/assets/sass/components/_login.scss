@@ -1,0 +1,40 @@
+.login {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  form {
+    width: 400px;
+    @include media-breakpoint-down(sm) {
+      width: 280px;
+    }
+    input {
+      width: 100%;
+      border: none;
+      padding: 10px 15px;
+      background-color: $color-secondary;
+      transition: all 0.5s;
+      border-radius: 5px;
+      border: 2px solid transparent;
+      margin-bottom: 15px;
+      &:hover {
+        border: 2px solid $color-border;
+      }
+      &:focus {
+        border: 2px solid $color-dark;
+        outline: none;
+      }
+    }
+
+    button {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .error {
+      font-size: 15px;
+      color: $color-danger;
+      margin-top: 15px;
+      text-align: center;
+    }
+  }
+}
