@@ -80,7 +80,7 @@ const Subscribe = () => {
                     Sign up & get 10% of your first books.
                   </p>
                   <MailchimpSubscribe
-                    url={mailchimpLink}
+                    url={mailchimpLink || '#'}
                     render={({ subscribe, status, message }) => (
                       <SubscribeForm
                         status={status}

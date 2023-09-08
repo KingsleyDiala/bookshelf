@@ -4,11 +4,11 @@ const HeroClassic = () => {
   const { executeScroll, setQuery } = useAllContext();
   return (
     <div className="hero-classic">
-      <img src="assets/images/hero-classic.jpg" alt="hero" />
+      <img src="assets/images/cover.jpg" alt="hero" />
       <div className="hero-classic__content">
         <div className="container">
           <h1 className="display-4 mb-4 text-capitalize">
-            There Is No Friend As Loyal As A Book
+            Kein Freund ist so treu wie ein Buch
           </h1>
           <p className="mb-5 fs-5">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad harum
@@ -16,7 +16,7 @@ const HeroClassic = () => {
           </p>
           <input
             type="text"
-            placeholder="Search your favorite book"
+            placeholder="Suchen Sie Ihr Lieblingsbuch"
             onClick={(e) => executeScroll()}
             onChange={(e) => setQuery(e.target.value)}
           />

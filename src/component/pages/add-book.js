@@ -1,48 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db, storage } from "../../firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useForm } from "react-hook-form";
 import Header from "../global/header";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Footer from "../global/footer";
 import { ProgressBar } from "react-bootstrap";
+import { CREATE_NEW_BOOK, PUBLISH_BOOK, BOOKS_QUERY } from "../../queries";
+import { useMutation, useQuery } from "@apollo/client";
+import { useAllContext } from "../context/context";
+
 
 const AddBook = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState("");
   const [image, setImage] = useState({});
   const [perc, setPerc] = useState(null);
-  console.log(perc);
-  console.log(image);
-  useEffect(() => {
-    const uploadFile = (e) => {
-      const storageRef = ref(storage, file.name);
-      const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setPerc(progress);
-        },
-        (error) => {
-          Swal.fire({
-            icon: "error",
-            text:  error.message ,
-          });
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImage((prev) => ({ ...prev, img: downloadURL }));
-          });
-        }
-      );
-    };
-    file && uploadFile();
-  }, [file]);
+  const { setIsLoading } = useAllContext();
+  // const [CreateAndPublishBook, { error, data, loading }] =
+    // useMutation(CREATE_NEW_BOOK);
+  
+  const [createBook, {error, loading, data}] = useMutation(CREATE_NEW_BOOK);
+  const [publishBook] = useMutation(PUBLISH_BOOK);
+
+  useEffect(() => {
+    setIsLoading(loading);
+  }, [loading]);
 
   const {
     register,
@@ -50,121 +33,225 @@ const AddBook = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data, e) => {
+
+
+
+  const onTest = async (formData, e) => {
+
+    const parsedData = {
+      author: formData.author,
+      language: formData.language,
+      publisher: formData.publisher,
+      publish_year: formData.publishedDate, // Parse as integer
+      subtitle: formData.subtitle,
+      genres: [formData.genres],
+      description: formData.description,
+      pages: parseInt(formData.pages), // Parse as integer
+      price: parseFloat(formData.price), // Parse as float
+      isbn: parseInt(formData.isbn),
+      shelf_number: parseInt(formData.shelf_number),
+      title: formData.title,
+      url: formData.url,
+      offer: parseFloat(formData.offer), // Parse as float
+      country: formData.country,
+      id: '2938nk5nt0gvn24fnf92n42v9234nv92'
+    };
+    
     try {
-      await addDoc(collection(db, "books"), {
-        ...data,
-        ...image,
-        offer: "0",
-        offerPrice: data.price,
-        timeStamp: serverTimestamp(),
+      const { data: createData } = await createBook({ variables: parsedData });
+
+      // The book has been successfully created, and you have access to the data.
+      const newBook = createData.createBook;
+
+      // Step 2: Publish the book
+      const { data: publishData } = await publishBook({
+        variables: {
+          bookId: newBook.id, // Use the ID of the newly created book
+        },
       });
+
+      // The book has been successfully published.
+      const publishedBook = publishData.publishBook;
+
+      // You can now execute your code after the book is published, for example:
       Swal.fire({
         icon: "success",
-        text: "Book add successfully",
+        text: "Book added und Published successfully",
       });
-      navigate("/all-books");
-    } catch (err) {
+
+      setTimeout(() => {
+        navigate("/all-books");
+      }, 1000)
+
+    } catch (error) {
+      // Handle any errors that occurred during either mutation
       Swal.fire({
         icon: "error",
-        text: { err },
+        text: error.networkError.result.errors[0].message,
       });
+
+      console.error(
+        "Error creating or publishing book:",
+        error.networkError.result.errors[0].message
+      );
     }
+
     e.target.reset();
+  }
+
+  const onSubmit = async (formData, e) => {
+
+    const parsedData = {
+      author: formData.author,
+      language: formData.language,
+      publisher: formData.publisher,
+      publish_year: formData.publishedDate, // Parse as integer
+      subtitle: formData.subtitle,
+      genres: [formData.genres],
+      description: formData.description,
+      pages: parseInt(formData.pages), // Parse as integer
+      price: parseFloat(formData.price), // Parse as float
+      isbn: parseInt(formData.isbn),
+      shelf_number: parseInt(formData.shelf_number),
+      title: formData.title,
+      url: formData.url,
+      offer: parseFloat(formData.offer), // Parse as float
+      country: formData.country,
+    };
+
+      // const createdBook = await CreateAndPublishBook({
+      //   variables: parsedData,
+      // });
+
+    setTimeout(async () => {
+
+      //   const publish = await publishBook({ variables: { url: parsedData.url } });
+      // if (publish.data) {
+      //       Swal.fire({
+      //         icon: "success",
+      //         text: "Book add successfully",
+      //       });
+      // } else if (publish.errors) {
+      //   console.log(errors.root.message);
+      //     }
+      // navigate("/all-books");
+      
+      if (data)
+
+      if (error) {
+        console.log(error.networkError.result.errors);
+        Swal.fire({
+          icon: "error",
+          text: error.networkError.result.errors[0].message,
+        });
+      }
+    }, 500);
+
+
+    // e.target.reset();
   };
+
   return (
     <>
       <Header headers="add-book" />
       <div className="add-book section-padding">
         <div className="container">
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onTest)}>
             <div className="row">
               <div className="col-md-6 mb-4">
                 <div className="add-book__input">
                   <div className="add-book__input--image">
                     <label htmlFor="file" className="mt-0 mb-2">
-                      <input
-                        type="file"
-                        id="file"
-                        onChange={(e) => setFile(e.target.files[0])}
-                        style={{ display: "none" }}
-                      />
                       <img
                         className="img-fluid"
                         src={
                           file
-                            ? URL.createObjectURL(file)
+                            ? file
                             : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                         }
                         alt=""
                       />
                     </label>
                     {perc !== null ? (
-                      <ProgressBar now={Math.round(perc)} label={`${Math.round(perc)}%`} />
+                      <ProgressBar
+                        now={Math.round(perc)}
+                        label={`${Math.round(perc)}%`}
+                      />
                     ) : (
                       ""
                     )}
                   </div>
-                  <label htmlFor="title">Book Title</label>
+                  <label htmlFor="title">Buch Titel</label>
                   <input
                     {...register("title", { required: true })}
                     id="title"
                     type="text"
-                    placeholder="Book Title"
+                    placeholder="Buch Titel"
                   />
-                  {errors.title && <p>Title is required</p>}
-                  <label htmlFor="subtitle">Book Subtitle</label>
+                  {errors.title && <p>Titel ist erforderlich</p>}
+                  <label htmlFor="title">Bild Url</label>
                   <input
-                    {...register("subtitle", { required: true })}
+                    {...register("url", { required: false })}
+                    id="url"
+                    type="text"
+                    placeholder="Bild Url"
+                    onChange={(e) => setFile(e.target.value)}
+                  />
+                  {errors.url && <p>Bild ist erforderlich</p>}
+                  <label htmlFor="subtitle">Buch Untertitel</label>
+                  <input
+                    {...register("subtitle", { required: false })}
                     id="subtitle"
                     type="text"
-                    placeholder="Book Subtitle"
+                    placeholder="Buch Untertitel"
                   />
-                  {errors.subtitle && <p>Subtitle is required</p>}
-                  <label htmlFor="desc">Book Description</label>
+                  {errors.subtitle && <p>Untertitel ist erforderlich</p>}
+                  <label htmlFor="description">Buchbeschreibung</label>
                   <textarea
-                    {...register("desc", { required: true })}
-                    id="desc"
+                    {...register("description", { required: false })}
+                    id="description"
                     rows="4"
                     type="text"
-                    placeholder="Book Description"
+                    placeholder="Buchbeschreibung"
                   />
-                  {errors.description && <p>Description is required</p>}
-                  <label htmlFor="author">Author Name</label>
+                  {errors.description && <p>Beschreibung ist erforderlich</p>}
+                  <label htmlFor="author">Autor Name</label>
                   <input
                     {...register("author", { required: true })}
                     id="author"
                     type="text"
-                    placeholder="Author Name"
+                    placeholder="Autor Name"
                   />
-                  {errors.author && <p>Author is required</p>}
-                  <label htmlFor="publisher">Publisher Name</label>
+                  {errors.author && <p>Autor ist erforderlich</p>}
+                  <label htmlFor="publisher">Herausgeber Name</label>
                   <input
                     {...register("publisher")}
                     id="publisher"
                     type="text"
-                    placeholder="Publisher Name"
+                    placeholder="Herausgeber Name"
                   />
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="add-book__input">
-                  <label htmlFor="publishedDate">Published Date</label>
+                  <label htmlFor="publishedDate">Veröffentlicht am</label>
                   <input
-                    {...register("publishedDate", { required: true })}
+                    {...register("publishedDate", { required: false })}
                     id="publishedDate"
-                    type="date"
-                    placeholder="Published Date"
+                    type="year"
+                    placeholder="Veröffentlicht am"
                   />
-                  {errors.publishedDate && <p>Publish Date is required</p>}
-                  <label htmlFor="category">Category</label>
+                  {errors.publishedDate && (
+                    <p>Veröffentlichungsdatum ist erforderlich</p>
+                  )}
+                  <label htmlFor="genres">Genres</label>
                   <input
-                    {...register("category", { required: true })}
-                    id="category"
+                    {...register("genres", { required: false })}
+                    id="genres"
                     type="text"
-                    placeholder="Category"
+                    placeholder="Genres"
                   />
-                  {errors.category && <p>Category is required</p>}
+                  {errors.category && <p>Genre ist erforderlich</p>}
                   <label htmlFor="isbn">ISBN</label>
                   <input
                     {...register("isbn")}
@@ -172,44 +259,59 @@ const AddBook = () => {
                     type="text"
                     placeholder="ISBN"
                   />
-                  <label htmlFor="pages">Number of pages</label>
+                  <label htmlFor="shelf_number">Regalnummer</label>
+                  <input
+                    {...register("shelf_number")}
+                    id="shelf_number"
+                    type="number"
+                    placeholder="Regalnummber"
+                  />
+                  <label htmlFor="pages">Seitenzahl</label>
                   <input
                     {...register("pages")}
                     id="pages"
                     type="number"
-                    placeholder="Pages"
+                    placeholder="Seitenzahl"
                   />
-                  <label htmlFor="country">Country</label>
+                  <label htmlFor="country">Land</label>
                   <input
-                    {...register("country", { required: true })}
+                    {...register("country", { required: false })}
                     id="country"
                     type="text"
-                    placeholder="Country"
+                    placeholder="Land"
                   />
-                  {errors.country && <p>Country is required</p>}
-                  <label htmlFor="language">Language</label>
+                  {errors.country && <p>Land ist erforderlich</p>}
+                  <label htmlFor="language">Sprache</label>
                   <input
-                    {...register("language", { required: true })}
+                    {...register("language", { required: false })}
                     id="language"
                     type="text"
-                    placeholder="Language"
+                    placeholder="Sprache"
                   />
-                  {errors.language && <p>Language is required</p>}
-                  <label htmlFor="price">Price</label>
+                  {errors.language && <p>Sprache ist erforderlich</p>}
+                  <label htmlFor="price">Preis</label>
                   <input
-                    {...register("price", { required: true })}
+                    {...register("price", { required: false })}
                     id="price"
-                    type="text"
-                    placeholder="Price"
+                    type="number"
+                    placeholder="Preis"
                   />
-                  {errors.price && <p>Price is required</p>}
+                  {errors.price && <p>Preis ist erforderlich</p>}
+                  <label htmlFor="offer">Preis Angebot</label>
+                  <input
+                    {...register("offer", { required: false })}
+                    id="offer"
+                    type="number"
+                    placeholder="Angebot"
+                  />
+                  {errors.offer && <p>Angebote ist erforderlich</p>}
                   <div className="text-center mt-4">
                     <button
                       disabled={perc !== null && perc < 100}
                       type="submit"
                       className="button button__primary"
                     >
-                      <span>Add Book</span>
+                      <span>Buch hinzufügen</span>
                     </button>
                   </div>
                 </div>

@@ -24,7 +24,7 @@ const Bookv3 = ({ book }) => {
           className="img-fluid"
           style={{ cursor: "pointer" }}
           onClick={bookDrawer}
-          src={book.img}
+          src={book.url}
           alt={book.title}
         />
         {book.offer === "0" ? (
@@ -41,14 +41,14 @@ const Bookv3 = ({ book }) => {
             By: <span>{book.author}</span>
           </p>
           <div className="price">
-            Price:{" "}
-            {parseInt(book.price) === book.offerPrice ? (
+            price:{" "}
+            {parseInt(book.price) === book.price ? (
               <>
                 <span>${book.price}</span>
               </>
             ) : (
               <>
-                <del>${book.price}</del> <span>${book.offerPrice}</span>
+                <del>${book.price}</del> <span>${book.price}</span>
               </>
             )}
           </div>
@@ -87,7 +87,7 @@ const Bookv3 = ({ book }) => {
               >
                 <span>
                   <AiOutlineShoppingCart />
-                  Add to cart
+                  Warenkorb
                 </span>
               </button>
             )}
@@ -113,37 +113,37 @@ const Bookv3 = ({ book }) => {
           </div>
           <div className="cart__book bs-scroll">
             <div className="cart__book--image">
-              <img src={book.img} alt={book.title} />
+              <img src={book.url} alt={book.title} />
             </div>
-            <p className="mb-2">{book.desc}</p>
+            <p className="mb-2">{book.description}</p>
             <ul>
               <li>
-                <span>Category</span>: {book.category}
+                <span>Genres</span>: {book.genres}
               </li>
               <li>
-                <span>Author</span>: {book.author}
+                <span>Autor</span>: {book.author}
               </li>
               <li>
-                <span>Language</span>: {book.language}
+                <span>Sprache</span>: {book.language}
               </li>
               {book.pages === "" ? (
                 ""
               ) : (
                 <li>
-                  <span>Total Pages</span>: {book.pages}
+                  <span>Gesamte Seiten</span>: {book.pages}
                 </li>
               )}
               <li>
-                <span>Price</span>: ${book.price}
+                <span>price</span>: ${book.price}
               </li>
               <li>
-                <span>Offer Price</span>: ${book.offerPrice}
+                <span>Angebotsprice</span>: ${book.offer}
               </li>
               <li>
-                <span>Publisher</span>: {book.publisher}
+                <span>Herausgeber</span>: {book.publisher}
               </li>
               <li>
-                <span>Published</span>: {book.publishedDate}
+                <span>Veröffentlicht</span>: {book.publish_year}
               </li>
               {book.isbn === "" ? (
                 ""
@@ -189,7 +189,7 @@ const Bookv3 = ({ book }) => {
               >
                 <span className="d-flex align-items-center gap-2 justify-content-center">
                   <AiOutlineShoppingCart />
-                  Add to cart
+                  Warenkorb
                 </span>
               </button>
             )}

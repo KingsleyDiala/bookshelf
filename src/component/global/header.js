@@ -92,7 +92,7 @@ const Header = ({ headers }) => {
               </span>
             </button>
             <Link to="/" className="header__logo">
-              <h1 className="m-0">BOOKSHELF.</h1>
+              <h1 className="m-0">BÜCHER.</h1>
               {/* <img src={siteLogo.logo} alt={siteLogo.alt} /> */}
             </Link>
             <div className="header__search">
@@ -102,14 +102,14 @@ const Header = ({ headers }) => {
                 </span>
                 <input
                   type="text"
-                  placeholder="Search your book here"
+                  placeholder="Suchen Sie Ihr Buch hier"
                   onClick={(e) => executeScroll()}
                   onChange={(e) => setQuery(e.target.value)}
                 />
               </form>
             </div>
             <div className="header__call">
-              <FiPhoneCall /> <a href="tel:01234567890">+01234567890</a>
+              <FiPhoneCall /> <a href="tel:01234567890">015219330138</a>
             </div>
             <button className="header__cart-btn" onClick={cartDrawer}>
               <CgShoppingBag />
@@ -124,39 +124,33 @@ const Header = ({ headers }) => {
             >
               <div className="header-menu">
                 <div className="header-menu__top">
-                  <h1>Bookshelf</h1>
+                  <h1>Bücher</h1>
                   <span onClick={headerDrawer}>
                     <MdOutlineClose />
                   </span>
                 </div>
                 <ul className="bs-scroll">
-                  <Link to="/bookshelf-minimal">
-                    <li>Bookshelf Minimal</li>
-                  </Link>
-                  <Link to="/bookshelf-modern">
-                    <li>Bookshelf Modern</li>
-                  </Link>
-                  <Link to="/bookshelf-classic">
-                    <li>Bookshelf Classic</li>
+                  <Link to="/">
+                    <li>Startseite</li>
                   </Link>
                   <Link to="/all-books">
-                    <li>All Books</li>
+                    <li>Alle Bücher</li>
                   </Link>
                   <li>{signOutMessage}</li>
                   {admin && (
                     <>
                       <Link to="/add-book">
-                        <li>Add book</li>
+                        <li>Buch hinzufügen</li>
                       </Link>
                       <Link to="/manage-book">
-                        <li>Manage book</li>
+                        <li>Buch verwalten</li>
                       </Link>
                       <li>
                         <button
                           className="button button__primary"
                           onClick={handleSignOut}
                         >
-                          <span>Logout</span>
+                          <span>Abmelden</span>
                         </button>
                       </li>
                     </>
@@ -178,14 +172,14 @@ const Header = ({ headers }) => {
                       <div className="cart__close" onClick={cartDrawer}>
                         <MdOutlineClose />
                       </div>
-                      <h2 className="fs-5">No items in Your Cart</h2>
+                      <h2 className="fs-5">Keine Artikel in Ihrem Warenkorb</h2>
                       <div className="section-divider divider-triangle"></div>
                     </div>
                   </div>
                   <div className="cart__empty">
                     <p>
-                      You haven't added anything in your cart yet. Start adding
-                      the books you like.
+                      Sie haben noch nichts in Ihren Warenkorb gelegt. Fügen Sie
+                      die Bücher, die Sie mögen.
                     </p>
                     <AiOutlineShoppingCart />
                   </div>

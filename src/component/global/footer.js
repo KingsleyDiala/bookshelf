@@ -17,8 +17,11 @@ const Footer = () => {
                 <BsStack />
               </div>
               <div className="footer__top--info">
-                <h3>Book Information?</h3>
-                <p>Please send us an email at support@gmail.com</p>
+                <h3>Informationen zum Buch?</h3>
+                <p>
+                  Bitte senden Sie uns eine E-Mail an
+                  giorgiqusikashvili1@gmail.com
+                </p>
               </div>
             </div>
           </div>
@@ -28,18 +31,23 @@ const Footer = () => {
                 <IoIosHelpBuoy />
               </div>
               <div className="footer__top--info">
-                <h3>Need Help?</h3>
-                <p>Please call us at <a href="tel:0123456789">0123456789</a></p>
+                <h3>Brauchen Sie Hilfe?</h3>
+                <p>
+                  Bitte rufen Sie uns an unter{" "}
+                  <a href="tel:0152 19330138">0152 19330138</a>
+                </p>
               </div>
             </div>
           </div>
         </div>
         <hr />
         <div className="footer__bottom">
-          <h3><a href="/">Bookshelf</a></h3>
+          <h3>
+            <a href="/">Bücher</a>
+          </h3>
           <p>
-            © {getYear()} All right reserved. Made withfooter by <AiFillHeart /> {" "}
-            <a href="https://themeforest.net/user/themeatelier">ThemeAtelier</a>
+            © {getYear()} Alle Rechte vorbehalten. Made with Giorgi by Kingsley Diala
+            <AiFillHeart />
           </p>
         </div>
       </div>

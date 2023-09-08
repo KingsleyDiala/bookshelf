@@ -5,7 +5,8 @@ import Header from "../global/header";
 import HeroClassic from "../hero-classic";
 import Subscribe from "../subscribe";
 
-const BookshelfClassic = () => {
+
+const Home = () => {
   return (
     <>
       <Header headers="classic" />
@@ -17,4 +18,4 @@ const BookshelfClassic = () => {
   );
 };
 
-export default BookshelfClassic;
+export default Home;

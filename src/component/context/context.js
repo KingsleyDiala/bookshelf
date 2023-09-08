@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef, useContext, createContext } from 'react';
-import { collection, onSnapshot } from "firebase/firestore";
 import { auth, db } from '../../firebase';
 
 const Context = createContext();
@@ -17,11 +16,12 @@ export const ContextProvider = ({ children }) => {
     const [cart, setCart] = useState(getLocalStorage());
     const [price, setPrice] = useState(0);
     const [allBooks, setAllBooks] = useState([]);
-    const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   
     const addToCart = (item) => {
       item.amount = 1;
-      item.total = parseInt(item.offerPrice);
+      item.total = parseInt(item.offer ? item.offer : item.price);
       if (cart.find((data) => data.id === item.id)) return;
       setCart([...cart, item]);
     };
@@ -30,7 +30,7 @@ export const ContextProvider = ({ children }) => {
       const ind = cart.indexOf(item);
       const arr = cart;
       arr[ind].amount += d;
-      arr[ind].total = item.amount * parseInt(item.offerPrice);
+      arr[ind].total = item.amount * parseInt(item.offer ? item.offer : item.price);
       if (arr[ind].amount === 0) arr[ind].amount = 1;
       setCart([...arr]);
     };
@@ -43,28 +43,11 @@ export const ContextProvider = ({ children }) => {
   
     const handlePrice = () => {
       let ans = 0;
-      cart.map((item) => (ans += item.amount * parseInt(item.offerPrice)));
+      cart.map((item) => (ans += item.amount * parseInt(item.offer ? item.offer : item.price)));
       setPrice(ans);
     };
-  
     useEffect(() => {
-      const unsub = onSnapshot(
-        collection(db, "books"),
-        (snapShot) => {
-          let list = [];
-          snapShot.docs.forEach((doc) => {
-            list.push({ id: doc.id, ...doc.data() });
-          });
-          setAllBooks(list);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-  
-      return () => {
-        unsub();
-      };
+      
     }, []);
   
     useEffect(() => {
@@ -103,6 +86,7 @@ export const ContextProvider = ({ children }) => {
             handleChange,
             handleRemove,
             allBooks,
+            setAllBooks,
             setCart,
             setQuery,
             query,
@@ -110,6 +94,8 @@ export const ContextProvider = ({ children }) => {
             admin,
             executeScroll,
             myRef,
+            isLoading,
+            setIsLoading,
           }}
         >
             {children}

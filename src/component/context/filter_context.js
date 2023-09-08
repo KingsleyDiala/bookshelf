@@ -1,6 +1,5 @@
-import { collection, onSnapshot } from "firebase/firestore";
+
 import { createContext, useReducer, useEffect, useContext, useState } from "react";
-import { db } from "../../firebase";
 import reducer from "../reducer/filterReducer";
 
 const FilterContext = createContext();
@@ -21,26 +20,8 @@ const initialState = {
 };
 
 export const FilterContextProvider = ({ children }) => {
-  const [allBooks, setAllBooks] = useState([]);
-  useEffect(() => {
-    const unsub = onSnapshot(
-      collection(db, "books"),
-      (snapShot) => {
-        let list = [];
-        snapShot.docs.forEach((doc) => {
-          list.push({ id: doc.id, ...doc.data() });
-        });
-        setAllBooks(list);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  const [allBooks, setAllBooksFilter] = useState([]);
 
-    return () => {
-      unsub();
-    };
-  }, []);
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -93,6 +74,7 @@ export const FilterContextProvider = ({ children }) => {
         sorting,
         updateFilterValue,
         clearFilters,
+        setAllBooksFilter,
       }}
     >
       {children}

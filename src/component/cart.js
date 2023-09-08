@@ -12,7 +12,7 @@ const Cart = ({ cartDrawer, confirmBook }) => {
           <div className="cart__close" onClick={cartDrawer}>
             <MdOutlineClose />
           </div>
-          <h2 className="fs-5">Your cart items</h2>
+          <h2 className="fs-5">Ihre Artikel im Warenkorb</h2>
           <div className="section-divider divider-triangle"></div>
         </div>
       </div>
@@ -21,21 +21,21 @@ const Cart = ({ cartDrawer, confirmBook }) => {
           <div className="row mb-3" key={cartItem.id}>
             <div className="col-sm-4 mb-3 mb-sm-0">
               <div className="cart__books__image">
-                <img src={cartItem.img} alt="book" className="img-fluid" />
+                <img src={cartItem.url} alt="book" className="img-fluid" />
               </div>
             </div>
             <div className="col-sm-8 ps-sm-0">
               <div className="cart__books__content">
                 <p className="title">{cartItem.title}</p>
-                Price:{" "}
-                {parseInt(cartItem.price) === cartItem?.offerPrice ? (
+                price:{" "}
+                {parseInt(cartItem.price) === cartItem?.offer ? (
                   <>
                     <span>${cartItem.price}</span>
                   </>
                 ) : (
                   <>
-                  <del>${cartItem.price}</del>{" "}
-                    <span>${cartItem.offerPrice}</span>
+                    <del>${cartItem.price}</del>{" "}
+                    <span>${cartItem.offer}</span>
                   </>
                 )}
                 <div className="calculation">
@@ -63,11 +63,11 @@ const Cart = ({ cartDrawer, confirmBook }) => {
       </div>
       <div className="cart__confirm">
         <div className="cart__confirm__price">
-          <span>Subtotal:</span>
+          <span>Zwischensumme:</span>
           <strong>${price}</strong>
         </div>
         <button className="button button__primary" onClick={confirmBook}>
-          <span>Confirm</span>
+          <span>Bestätigen</span>
         </button>
       </div>
     </div>

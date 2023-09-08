@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LoadingSpinner from "./loading-spinner";
-import Bookv3 from "./book-v3";
+import Bookv3 from "./book";
 import { useAllContext } from "./context/context";
 
 const Booksv3 = () => {
@@ -10,7 +10,7 @@ const Booksv3 = () => {
     setVisible((pervValue) => pervValue + 4);
   };
 
-  const { allBooks, query, myRef } = useAllContext();
+  const { allBooks, query, myRef, isLoading } = useAllContext();
 
   return (
     <div id="books" className="books section-padding section-bg" ref={myRef}>
@@ -18,14 +18,14 @@ const Booksv3 = () => {
         <div className="row">
           <div className="col-xl-6 offset-xl-3 col-lg-10 offset-lg-1">
             <div className="section-title-center text-center">
-              <span>Books Gallery</span>
-              <h2 className="display-6">Popular Books</h2>
+              <span>Bücher-Galerie</span>
+              <h2 className="display-6">Beliebte Bücher</h2>
               <div className="section-divider divider-triangle"></div>
             </div>
           </div>
         </div>
         <div className="row">
-          {allBooks.length === 0 ? (
+          {isLoading ? (
             <LoadingSpinner className="mb-4 col-md-6 col-lg-3" />
           ) : (
             allBooks
@@ -39,7 +39,7 @@ const Booksv3 = () => {
             ""
           ) : (
             <button onClick={showMoreBooks} className="button button__primary">
-              <span> Load More </span>
+              <span> Mehr laden </span>
             </button>
           )}
         </div>

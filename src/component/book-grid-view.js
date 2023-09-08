@@ -12,12 +12,13 @@ const BookGridView = () => {
   const { filter_books } = useFilterContext();
   const { cart, addToCart, handleChange, handleRemove } = useAllContext();
 
+
   return (
     <div className="row justify-content-center">
       {filter_books.map((book) => (
         <div className="col-lg-4 col-sm-6 mb-4" key={book.id}>
           <div className="all-book__item">
-            <img className="img-fluid" src={book.img} alt={book.title} />
+            <img className="img-fluid" src={book.url} alt={book.title} />
             {book.offer === "0" ? (
               ""
             ) : (
@@ -46,7 +47,7 @@ const BookGridView = () => {
                 {book.subtitle}
               </p>
               <p className="all-book__item__bottom--author">
-                By: <span>{book.author}</span>
+                Von: <span>{book.author}</span>
               </p>
               <div className="price">
                 Price:{" "}
@@ -56,7 +57,7 @@ const BookGridView = () => {
                   </>
                 ) : (
                   <>
-                    <del>${book.price}</del> <span>${book.offerPrice}</span>
+                    <del>${book.price}</del> <span>${book.offer}</span>
                   </>
                 )}
               </div>
@@ -95,7 +96,7 @@ const BookGridView = () => {
                   >
                     <span>
                       <AiOutlineShoppingCart />
-                      Add to cart
+                      Warenkorb
                     </span>
                   </button>
                 )}

@@ -39,13 +39,13 @@ const OpenModal = ({ book, handleRemove, handleChange, addToCart }) => {
           </div>
           <div className="row modal__wrapper__bottom">
             <div className="col-lg-6 mb-4 mb-lg-0">
-              <img className="img-fluid" src={book.img} alt={book.title} />
+              <img className="img-fluid" src={book.url} alt={book.title} />
             </div>
             <div className="col-lg-6">
               <p className="description">{book.desc}</p>
               <ul>
                 <li>
-                  <span>Category</span>: {book.category}
+                  <span>Genres</span>: {book.genres}
                 </li>
                 <li>
                   <span>Author</span>: {book.author}
@@ -114,7 +114,7 @@ const OpenModal = ({ book, handleRemove, handleChange, addToCart }) => {
                 >
                   <span>
                     <AiOutlineShoppingCart />
-                    Add to cart
+                    Warenkorb
                   </span>
                 </button>
               )}

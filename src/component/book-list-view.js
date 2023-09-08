@@ -19,7 +19,7 @@ const BookListView = () => {
             <div className="row">
               <div className="col-5">
                 <div className="book-list__left">
-                  <img className="img-fluid" src={book.img} alt={book.title} />
+                  <img className="img-fluid" src={book.url} alt={book.title} />
                   <span className="book-list__discount">
                     <span className="on-sale">-7%</span>
                   </span>
