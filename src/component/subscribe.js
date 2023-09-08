@@ -28,20 +28,20 @@ function SubscribeForm({ status, message, onValidated }) {
           ref={(node) => (email = node)}
           type="email"
           required
-          placeholder="Your email"
+          placeholder="Ihre E-Mail"
         />
         <button
           type="submit"
           className="button button__primary"
           onClick={submit}
         >
-          <span>Subscribe</span>
+          <span>Abonnieren</span>
         </button>
       </div>
 
       <div className="message col mt-3">
         {status === "sending" && (
-          <div className=" alert alert-warning">sending...</div>
+          <div className=" alert alert-warning">Senden...</div>
         )}
         {status === "error" && (
           <div
@@ -70,17 +70,20 @@ const Subscribe = () => {
               <div className="col-md-5 mb-4 mb-md-0 subscribe__wrapper--images">
                 <div
                   className="subscribe__image"
-                  style={{ backgroundImage: "url(assets/images/cover-1.jpg)" }}
+                  style={{ backgroundImage: "url(assets/images/cover.jpg)" }}
                 ></div>
               </div>
               <div className="col-md-7">
                 <div className="subscribe__content">
-                  <h3 className="display-6">Join Our Community</h3>
+                  <h3 className="display-6">
+                    Werden Sie Mitglied unserer Gemeinschaft
+                  </h3>
                   <p className="subscribe__content--subtitle">
-                    Sign up & get 10% of your first books.
+                    Registrieren Sie sich und erhalten Sie 10% auf Ihre ersten
+                    Bücher.
                   </p>
                   <MailchimpSubscribe
-                    url={mailchimpLink || '#'}
+                    url={mailchimpLink || "#"}
                     render={({ subscribe, status, message }) => (
                       <SubscribeForm
                         status={status}
@@ -91,12 +94,20 @@ const Subscribe = () => {
                   />
                   <ul className="subscribe__content--social mt-3">
                     <li>
-                      <a href="https://www.facebook.com" target="_blank" rel="noreferrer">
+                      <a
+                        href="https://www.facebook.com"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <FaFacebookF />
                       </a>
                     </li>
                     <li>
-                      <a href="https://www.facebook.com" target="_blank" rel="noreferrer">
+                      <a
+                        href="https://www.facebook.com"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <FaTwitter />
                       </a>
                     </li>

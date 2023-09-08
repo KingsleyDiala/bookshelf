@@ -38,7 +38,7 @@ export const CREATE_NEW_BOOK = gql`
     $description: String!
     $pages: Int
     $price: Float
-    $isbn: Int
+    $isbn: String!
     $shelf_number: Int
     $url: String
     $offer: Float

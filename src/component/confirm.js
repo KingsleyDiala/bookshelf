@@ -11,6 +11,7 @@ const Confirm = ({ backToCart, setConfirm }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  
   const onSubmit = (customerData, e) => {
     window.open(
       `https://wa.me/${whatsappNumber}?text=Hello%2C%20I%20would%20like%20to%20place%20an%20order.%0A%0A-----ORDER%20DETAILS-----%0A${cart.map(
@@ -38,7 +39,7 @@ const Confirm = ({ backToCart, setConfirm }) => {
           <div className="confirm__close" onClick={backToCart}>
             <HiArrowNarrowLeft />
           </div>
-          <h2 className="fs-5">Checkout</h2>
+          <h2 className="fs-5">Kasse</h2>
           <div className="section-divider divider-triangle"></div>
         </div>
       </div>
@@ -48,62 +49,63 @@ const Confirm = ({ backToCart, setConfirm }) => {
       >
         <div className="row">
           <div className="col-12 mb-4">
-            <h3 className="title">Contact Information</h3>
+            <h3 className="title">Kontaktinformationen</h3>
             <input
               {...register("number", { required: true })}
               type="number"
-              placeholder="Phone Number"
+              placeholder="Telefonnummer"
               className="mt-0"
             />
-            {errors.number && <p>Phone number is required</p>}
+            {errors.number && <p>Telefonnummer ist erforderlich</p>}
             <input
               {...register("email", { required: true })}
               type="email"
-              placeholder="Email Address"
+              placeholder="E-Mail Adresse"
             />
-            {errors.email && <p>Email is required</p>}
+            {errors.email && <p>E-Mail ist erforderlich</p>}
           </div>
           <div className="col-12">
-            <h3 className="title">Shipping Address</h3>
+            <h3 className="title">Lieferadresse</h3>
             <input
               {...register("name", { required: true })}
               type="text"
-              placeholder="Your Name"
+              placeholder="Ihr Name"
             />
-            {errors.name && <p>Name is required</p>}
+            {errors.name && <p>Name ist erforderlich</p>}
             <textarea
               {...register("address", { required: true })}
               type="text"
-              placeholder="Enter Address"
+              placeholder="Adresse eingeben"
               rows="3"
             />
-            {errors.address && <p>Address is required</p>}
+            {errors.address && <p>Adresse ist erforderlich</p>}
           </div>
           <div className="col-md-6 mb-3 mb-md-0">
             <input
               {...register("postalCode", { required: true })}
               type="number"
-              placeholder="Postal Code"
+              placeholder="Postleitzahl"
             />
-            {errors.postalCode && <p>Postal Code is required</p>}
+            {errors.postalCode && <p>Postleitzahl ist erforderlich</p>}
           </div>
           <div className="col-md-6">
             <input
               {...register("homeAddress", { required: true })}
               type="text"
-              placeholder="Apartment, Suite, etc."
+              placeholder="Wohnung, Suite, etc."
             />
-            {errors.homeAddress && <p>Apartment address is required</p>}
+            {errors.homeAddress && <p>Adresse der Wohnung ist erforderlich</p>}
           </div>
           <div className="cart__confirm">
             <button type="submit" className="button button__primary">
-              <span>Confirm Order</span>
+              <span>Bestellung bestätigen</span>
             </button>
           </div>
         </div>
         <span className="text-center alert alert-success mt-3" role="alert">
-          [Note: Your order will be confirmed via Whatsapp. You'll be redirect
-          to whatsapp after clicking 'Confirm Order' button.]
+          [Hinweis: Ihre Bestellung wird per Whatsapp bestätigt. Sie werden
+          weitergeleitet zu Whatsapp weitergeleitet, nachdem Sie auf die
+          Schaltfläche "Bestellung bestätigen" geklickt haben.]
         </span>
       </form>
     </div>

@@ -48,7 +48,7 @@ const AddBook = () => {
       description: formData.description,
       pages: parseInt(formData.pages), // Parse as integer
       price: parseFloat(formData.price), // Parse as float
-      isbn: parseInt(formData.isbn),
+      isbn: formData.isbn,
       shelf_number: parseInt(formData.shelf_number),
       title: formData.title,
       url: formData.url,

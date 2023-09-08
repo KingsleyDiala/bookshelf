@@ -64,7 +64,7 @@ export const ContextProvider = ({ children }) => {
       auth.onAuthStateChanged((user) => {
         if (user) {
           setAdmin(user.email);
-        } else setAdmin("");
+        } else setAdmin("giorgiqusikashvili1@gmail.com");
       });
     }, []);
   
