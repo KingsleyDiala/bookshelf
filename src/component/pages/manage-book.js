@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import Header from "../global/header";
-import { RiDeleteBin6Line, RiEditBoxLine } from "react-icons/ri";
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { RiEditBoxLine } from "react-icons/ri";
+import { BsFillArchiveFill } from "react-icons/bs";
+import { useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
 import Footer from "../global/footer";
 import { useAllContext } from "../context/context";
 import Pagination from "../pagination";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { UNPUBLISH_BOOK } from "../../queries";
+import LoadingSpinner from "../loading-spinner";
 
 const ManageBooks = ({
   setCart,
@@ -16,27 +18,36 @@ const ManageBooks = ({
   handleRemove,
   setQuery,
 }) => {
-  const { allBooks } = useAllContext();
+  const { allBooks, setAllBooks, isLoading} = useAllContext();
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
+  const [postsPerPage] = useState(15);
+  const [unpublishBook] = useMutation(UNPUBLISH_BOOK);
 
   const indexOfLastBook = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastBook - postsPerPage;
-  const currentBooks = allBooks.slice(indexOfFirstPost, indexOfLastBook);
+
+  let currentBooks = allBooks && allBooks.slice(indexOfFirstPost, indexOfLastBook);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+
   const deleteBook = async (id) => {
     try {
+
+      const { data } = await unpublishBook({ variables: { bookId: id } });
+    
+      const filteredBooks = allBooks.filter((book) => book.id !== id);
+      setAllBooks(filteredBooks);
+
       Swal.fire({
         icon: "success",
-        text: "Book delete successfully",
+        text: "Buch erfolgreich archiviert",
       });
-      await deleteDoc(doc(db, "books", id));
-    } catch (err) {
+
+    } catch (error) {
       Swal.fire({
         icon: "error",
-        text: { err },
+        text: error.networkError.result.errors[0].message,
       });
     }
   };
@@ -52,20 +63,20 @@ const ManageBooks = ({
                 <table className="table border">
                   <thead>
                     <tr>
-                      <th>Images</th>
-                      <th>Book Name</th>
-                      <th>Price</th>
+                      <th>Bilder</th>
+                      <th>Buch Name</th>
+                      <th>Preis</th>
                       <th>Update</th>
-                      <th>Remove</th>
+                      <th>Archiviren</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {currentBooks.map((allBook) => (
+                    {currentBooks && currentBooks.map((allBook) => (
                       <tr key={allBook.id}>
                         <td>
                           <img
                             className="img-fluid"
-                            src={allBook.img}
+                            src={allBook.url}
                             alt={allBook.title}
                           />
                         </td>
@@ -73,14 +84,14 @@ const ManageBooks = ({
                           <span>{allBook.title}</span>
                         </td>
                         <td>
-                          {parseInt(allBook.price) === allBook.offerPrice ? (
+                          {parseInt(allBook.price) === allBook.offer ? (
                             <>
-                              <span>${allBook.price}</span>
+                              <span>€{allBook.price}</span>
                             </>
                           ) : (
                             <>
-                              <del>${allBook.price}</del>{" "}
-                              <span>${allBook.offerPrice}</span>
+                              <del>€{allBook.price}</del>{" "}
+                              <span>€{allBook.offerPrice}</span>
                             </>
                           )}
                         </td>
@@ -94,7 +105,7 @@ const ManageBooks = ({
                             className="icon"
                             onClick={() => deleteBook(allBook.id)}
                           >
-                            <RiDeleteBin6Line />
+                            <BsFillArchiveFill />
                           </span>
                         </td>
                       </tr>

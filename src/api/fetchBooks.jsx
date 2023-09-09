@@ -10,16 +10,14 @@ const FetchBooks = () => {
 
   const { error, loading, data } = useQuery(BOOKS_QUERY);
 
-
   useEffect(() => {
-    setIsLoading(loading);
-    if (data) {
-      setAllBooks(data.books)
-      setAllBooksFilter(data.books);
-  
-    }
-    if (error) console.log(error.networkError.result.errors[0].message)
-  });
+
+    data && setAllBooks(data.books);
+    data && setAllBooksFilter(data.books);
+
+    if (error) console.log(error.networkError.result.errors[0].message);
+
+  }, [loading]);
 
   return (
     <></>

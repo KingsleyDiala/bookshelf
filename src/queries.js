@@ -114,3 +114,12 @@ export const BOOK_QUERY = gql`
     }
   }
 `;
+
+
+export const UNPUBLISH_BOOK = gql`
+  mutation UnpublishBook($bookId: ID!) {
+    unpublishBook(where: { id: $bookId }, from: PUBLISHED) {
+      id
+    }
+  }
+`;

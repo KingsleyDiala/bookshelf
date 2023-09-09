@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useContext, createContext } from 'react';
-import { auth, db } from '../../firebase';
+import { auth } from '../../firebase';
 
 const Context = createContext();
 
@@ -39,16 +39,18 @@ export const ContextProvider = ({ children }) => {
       const arr = cart.filter((item) => item.id !== id);
       setCart(arr);
       handlePrice();
-    };
+  };
+  
+  const handleRemoveBook = (id) => {
+    const arr = allBooks.filter((item) => item.id !== id);
+    setAllBooks([]);
+  };
   
     const handlePrice = () => {
       let ans = 0;
       cart.map((item) => (ans += item.amount * parseInt(item.offer ? item.offer : item.price)));
       setPrice(ans);
     };
-    useEffect(() => {
-      
-    }, []);
   
     useEffect(() => {
       handlePrice();
@@ -84,6 +86,7 @@ export const ContextProvider = ({ children }) => {
             cart,
             addToCart,
             handleChange,
+            handleRemoveBook,
             handleRemove,
             allBooks,
             setAllBooks,
