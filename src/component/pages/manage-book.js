@@ -7,18 +7,15 @@ import Swal from "sweetalert2";
 import Footer from "../global/footer";
 import { useAllContext } from "../context/context";
 import Pagination from "../pagination";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { UNPUBLISH_BOOK } from "../../queries";
-import LoadingSpinner from "../loading-spinner";
+import { useFilterContext } from "../context/filter_context";
+
 
 const ManageBooks = ({
-  setCart,
-  handleChange,
-  price,
-  handleRemove,
-  setQuery,
 }) => {
-  const { allBooks, setAllBooks, isLoading} = useAllContext();
+  const { allBooks, setAllBooks, myRef } = useAllContext();
+  const { filter_books } = useFilterContext();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(15);
   const [unpublishBook] = useMutation(UNPUBLISH_BOOK);
@@ -55,7 +52,7 @@ const ManageBooks = ({
   return (
     <>
       <Header headers="manage-book" />
-      <section className="section-padding manege-book">
+      <section ref={myRef} className="section-padding manege-book">
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -71,45 +68,46 @@ const ManageBooks = ({
                     </tr>
                   </thead>
                   <tbody>
-                    {currentBooks && currentBooks.map((allBook) => (
-                      <tr key={allBook.id}>
-                        <td>
-                          <img
-                            className="img-fluid"
-                            src={allBook.url}
-                            alt={allBook.title}
-                          />
-                        </td>
-                        <td>
-                          <span>{allBook.title}</span>
-                        </td>
-                        <td>
-                          {parseInt(allBook.price) === allBook.offer ? (
-                            <>
-                              <span>€{allBook.price}</span>
-                            </>
-                          ) : (
-                            <>
-                              <del>€{allBook.price}</del>{" "}
-                              <span>€{allBook.offerPrice}</span>
-                            </>
-                          )}
-                        </td>
-                        <td>
-                          <Link className="icon" to={`/update/${allBook.id}`}>
-                            <RiEditBoxLine />
-                          </Link>
-                        </td>
-                        <td>
-                          <span
-                            className="icon"
-                            onClick={() => deleteBook(allBook.id)}
-                          >
-                            <BsFillArchiveFill />
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
+                    {currentBooks &&
+                      currentBooks.map((allBook) => (
+                        <tr key={allBook.id}>
+                          <td>
+                            <img
+                              className="img-fluid"
+                              src={allBook.url}
+                              alt={allBook.title}
+                            />
+                          </td>
+                          <td>
+                            <span>{allBook.title}</span>
+                          </td>
+                          <td>
+                            {parseInt(allBook.price) === allBook.offer ? (
+                              <>
+                                <span>€{allBook.price}</span>
+                              </>
+                            ) : (
+                              <>
+                                <del>€{allBook.price}</del>{" "}
+                                <span>€{allBook.offerPrice}</span>
+                              </>
+                            )}
+                          </td>
+                          <td>
+                            <Link className="icon" to={`/update/${allBook.id}`}>
+                              <RiEditBoxLine />
+                            </Link>
+                          </td>
+                          <td>
+                            <span
+                              className="icon"
+                              onClick={() => deleteBook(allBook.id)}
+                            >
+                              <BsFillArchiveFill />
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>

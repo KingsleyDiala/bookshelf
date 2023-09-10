@@ -103,7 +103,7 @@ const Header = ({ headers }) => {
                 <input
                   type="text"
                   placeholder="Suchen Sie Ihr Buch hier"
-                  onClick={(e) => executeScroll()}
+                  onClick={(e) =>  executeScroll()}
                   onChange={(e) => setQuery(e.target.value)}
                 />
               </form>
