@@ -36,7 +36,7 @@ const AddBook = () => {
 
 
 
-  const onTest = async (formData, e) => {
+  const onSubmit = async (formData, e) => {
 
     const parsedData = {
       author: formData.author,
@@ -99,64 +99,13 @@ const AddBook = () => {
     e.target.reset();
   }
 
-  const onSubmit = async (formData, e) => {
-
-    const parsedData = {
-      author: formData.author,
-      language: formData.language,
-      publisher: formData.publisher,
-      publish_year: formData.publishedDate, // Parse as integer
-      subtitle: formData.subtitle,
-      genres: [formData.genres],
-      description: formData.description,
-      pages: parseInt(formData.pages), // Parse as integer
-      price: parseFloat(formData.price), // Parse as float
-      isbn: parseInt(formData.isbn),
-      shelf_number: parseInt(formData.shelf_number),
-      title: formData.title,
-      url: formData.url,
-      offer: parseFloat(formData.offer), // Parse as float
-      country: formData.country,
-    };
-
-      // const createdBook = await CreateAndPublishBook({
-      //   variables: parsedData,
-      // });
-
-    setTimeout(async () => {
-
-      //   const publish = await publishBook({ variables: { url: parsedData.url } });
-      // if (publish.data) {
-      //       Swal.fire({
-      //         icon: "success",
-      //         text: "Book add successfully",
-      //       });
-      // } else if (publish.errors) {
-      //   console.log(errors.root.message);
-      //     }
-      // navigate("/all-books");
-      
-      if (data)
-
-      if (error) {
-        console.log(error.networkError.result.errors);
-        Swal.fire({
-          icon: "error",
-          text: error.networkError.result.errors[0].message,
-        });
-      }
-    }, 500);
-
-
-    // e.target.reset();
-  };
 
   return (
     <>
       <Header headers="add-book" />
       <div className="add-book section-padding">
         <div className="container">
-          <form onSubmit={handleSubmit(onTest)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="row">
               <div className="col-md-6 mb-4">
                 <div className="add-book__input">
@@ -223,6 +172,10 @@ const AddBook = () => {
                     placeholder="Autor Name"
                   />
                   {errors.author && <p>Autor ist erforderlich</p>}
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="add-book__input">
                   <label htmlFor="publisher">Herausgeber Name</label>
                   <input
                     {...register("publisher")}
@@ -230,10 +183,6 @@ const AddBook = () => {
                     type="text"
                     placeholder="Herausgeber Name"
                   />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="add-book__input">
                   <label htmlFor="publishedDate">Veröffentlicht am</label>
                   <input
                     {...register("publishedDate", { required: false })}
