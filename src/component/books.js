@@ -31,8 +31,8 @@ const Books = () => {
         <div className="row">
           <div className="col-xl-6 offset-xl-3 col-lg-10 offset-lg-1">
             <div className="section-title-center text-center">
-              <span>Books Gallery</span>
-              <h2 className="display-6">Popular Books</h2>
+              <span>Bücher-Galerie</span>
+              <h2 className="display-6">Beliebte Bücher</h2>
               <div className="section-divider divider-triangle"></div>
             </div>
           </div>
@@ -85,17 +85,18 @@ const Books = () => {
                         {book.subtitle}
                       </p>
                       <p className="books__book__bottom--author">
-                        By: <span>{book.author}</span>
+                        Von: <span>{book.author}</span>
                       </p>
                       <div className="price">
-                        Price: {parseInt(book.price) === book.offerPrice ? (
+                        Preis:{" "}
+                        {parseInt(book.price) === book.offerPrice ? (
                           <>
-                            <span>${book.price}</span>
+                            <span>€{book.price}</span>
                           </>
                         ) : (
                           <>
-                            <del>${book.price}</del>{" "}
-                            <span>${book.offerPrice}</span>
+                            <del>€{book.price}</del>{" "}
+                            <span>€{book.offerPrice}</span>
                           </>
                         )}
                       </div>
@@ -128,7 +129,7 @@ const Books = () => {
                                       <AiOutlinePlus />
                                     </button>
                                   </div>
-                                  <span>${newData.total}</span>
+                                  <span>€{newData.total}</span>
                                 </div>
                               ) : (
                                 ""
@@ -142,7 +143,7 @@ const Books = () => {
                           >
                             <span>
                               <AiOutlineShoppingCart />
-                              Add to cart
+                              Warenkorb
                             </span>
                           </button>
                         )}

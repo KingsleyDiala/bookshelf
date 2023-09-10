@@ -7,15 +7,20 @@ import Swal from "sweetalert2";
 import Footer from "../global/footer";
 import { useAllContext } from "../context/context";
 import Pagination from "../pagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UNPUBLISH_BOOK } from "../../queries";
 import { useFilterContext } from "../context/filter_context";
+import { useNavigate } from "react-router-dom";
 
 
 const ManageBooks = ({
 }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!window.sessionStorage.getItem('user')) navigate('/login');
+  },[])
   const { allBooks, setAllBooks, myRef } = useAllContext();
-  const { filter_books } = useFilterContext();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(15);
   const [unpublishBook] = useMutation(UNPUBLISH_BOOK);

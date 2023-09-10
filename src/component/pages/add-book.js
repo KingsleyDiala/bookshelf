@@ -12,13 +12,15 @@ import { useAllContext } from "../context/context";
 
 const AddBook = () => {
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    if (!window.sessionStorage.getItem("user")) navigate("/login");
+  }, []);
+
   const [file, setFile] = useState("");
-  const [image, setImage] = useState({});
   const [perc, setPerc] = useState(null);
 
   const { setIsLoading } = useAllContext();
-  // const [CreateAndPublishBook, { error, data, loading }] =
-    // useMutation(CREATE_NEW_BOOK);
   
   const [createBook, {error, loading, data}] = useMutation(CREATE_NEW_BOOK);
   const [publishBook] = useMutation(PUBLISH_BOOK);

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Header from "../global/header";
 import Footer from "../global/footer";
@@ -10,6 +10,12 @@ import { UPDATE_BOOK, PUBLISH_BOOK } from "../../queries";
 
 
 const Update = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!window.sessionStorage.getItem("user")) navigate("/login");
+  }, []);
+  
   const [data, setData] = useState([]);
 
   const { id } = useParams();

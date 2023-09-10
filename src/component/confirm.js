@@ -90,7 +90,7 @@ const Confirm = ({ backToCart, setConfirm }) => {
           </div>
           <div className="col-md-6">
             <input
-              {...register("homeAddress", { required: true })}
+              {...register("homeAddress", { required: false })}
               type="text"
               placeholder="Wohnung, Suite, etc."
             />

@@ -18,6 +18,7 @@ export const ContextProvider = ({ children }) => {
     const [allBooks, setAllBooks] = useState([]);
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [users, setUsers] = useState([]);
   
     const addToCart = (item) => {
       item.amount = 1;
@@ -62,14 +63,35 @@ export const ContextProvider = ({ children }) => {
   
     const [admin, setAdmin] = useState("");
   
-    useEffect(() => {
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          setAdmin(user.email);
-        } else setAdmin("giorgiqusikashvili1@gmail.com");
-      });
-    }, []);
   
+  const login = (email, password) => {
+    const user =
+      users &&
+      users.filter(
+        (user) =>
+          user.email === email &&
+          user.password === password
+      );
+    
+    
+    user.length > 0 && setSession({ user: user[0] });
+
+    user.length > 0 && setAdmin({
+        user: user[0].email,
+    });
+
+    return user.length < 1 ? null : user[0];
+  };
+
+  const setSession = (user) => {
+    window.sessionStorage.setItem('user', JSON.stringify(user));
+  };
+
+  const logOut = () => {
+    const cleared = window.sessionStorage.clear();
+    setAdmin('')
+    return cleared ? true : false;
+  };
     // scroll
     const myRef = useRef(null);
   
@@ -80,6 +102,7 @@ export const ContextProvider = ({ children }) => {
         block: "start",
       });
     };
+
     return (
         <Context.Provider
         value={{
@@ -99,6 +122,10 @@ export const ContextProvider = ({ children }) => {
             myRef,
             isLoading,
             setIsLoading,
+            users,
+          setUsers,
+          login,
+            logOut,
           }}
         >
             {children}

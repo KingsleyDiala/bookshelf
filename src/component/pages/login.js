@@ -1,25 +1,25 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase";
+import { useAllContext } from "../context/context";
 
 const Login = () => {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login, logOut } = useAllContext();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then(async (res) => {
-        navigate("/");
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
+    const response = await login(email, password);
+    if (response === null) setError(true);
+    if (response) {
+      navigate('/manage-book');
+    }
   };
+
+
 
   return (
     <>
@@ -27,18 +27,22 @@ const Login = () => {
         <form onSubmit={handleLogin} action="">
           <input
             type="email"
-            placeholder="email"
+            placeholder="E-Mail"
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
-            placeholder="password"
+            placeholder="Passwort"
             onChange={(e) => setPassword(e.target.value)}
           />
           <button className="button button__primary" type="submit">
-            <span>Login</span>
+            <span>Einloggen</span>
           </button>
-          {error && <span className="error">Wrong email or password!</span>}
+          {error && (
+            <span className="error">
+              Falsche E-Mail oder falsches Passwort!
+            </span>
+          )}
         </form>
       </div>
     </>

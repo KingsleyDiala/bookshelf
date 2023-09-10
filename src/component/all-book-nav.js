@@ -34,8 +34,8 @@ const AllBookNav = () => {
             className="sort-selection--style"
             onClick={sorting}
           >
-            <option value="lowest">Price(lowest)</option>
-            <option value="highest">Price(highest)</option>
+            <option value="lowest">Preis(niedrigste)</option>
+            <option value="highest">Preis(höchste)</option>
             <option value="a-z">(a-z)</option>
             <option value="z-a">(z-a)</option>
           </select>

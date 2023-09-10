@@ -26,6 +26,19 @@ export const BOOKS_QUERY = gql`
 `;
 
 
+export const USERS_QUERY = gql`
+  query MyQuery {
+    authorizedUsers {
+      id
+      name
+      password
+      email
+    }
+  }
+`;
+
+
+
 export const CREATE_NEW_BOOK = gql`
   mutation CreateBook(
     $title: String!

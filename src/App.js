@@ -5,10 +5,9 @@ import ManageBooks from "./component/pages/manage-book";
 import Update from "./component/pages/update";
 import Home from "./component/pages/homepage";
 import AllBooks from "./component/pages/all-books";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FetchBooks from "./api/fetchBooks";
-import { ApolloProvider } from "@apollo/client";
-import client from "./apollo";
+import FetchUser from "./api/fetchUser";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -19,11 +18,11 @@ function ScrollToTop() {
   return null;
 }
 
-
 function App() {
+
   return (
     <>
-      <ApolloProvider client={client}>
+      <FetchUser />
         <FetchBooks />
         <BrowserRouter>
             <ScrollToTop />
@@ -36,7 +35,6 @@ function App() {
               <Route path="/all-books" element={<AllBooks />} />
             </Routes>
         </BrowserRouter>
-      </ApolloProvider>
     </>
   );
 }

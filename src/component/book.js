@@ -38,17 +38,17 @@ const Bookv3 = ({ book }) => {
           <h3 className="books__book__bottom--title">{book.title}</h3>
           <p className="books__book__bottom--subtitle">{book.subtitle}</p>
           <p className="books__book__bottom--author">
-            By: <span>{book.author}</span>
+            Von: <span>{book.author}</span>
           </p>
           <div className="price">
             price:{" "}
             {parseInt(book.price) === book.price ? (
               <>
-                <span>${book.price}</span>
+                <span>€{book.price}</span>
               </>
             ) : (
               <>
-                <del>${book.price}</del> <span>${book.price}</span>
+                <del>€{book.price}</del> <span>€{book.price}</span>
               </>
             )}
           </div>
@@ -73,7 +73,7 @@ const Bookv3 = ({ book }) => {
                           <AiOutlinePlus />
                         </button>
                       </div>
-                      <span>${newData.total}</span>
+                      <span>€{newData.total}</span>
                     </div>
                   ) : (
                     ""
@@ -134,10 +134,10 @@ const Bookv3 = ({ book }) => {
                 </li>
               )}
               <li>
-                <span>price</span>: ${book.price}
+                <span>price</span>: €{book.price}
               </li>
               <li>
-                <span>Angebotsprice</span>: ${book.offer}
+                <span>Angebotsprice</span>: €{book.offer}
               </li>
               <li>
                 <span>Herausgeber</span>: {book.publisher}
@@ -175,7 +175,7 @@ const Bookv3 = ({ book }) => {
                           <AiOutlinePlus />
                         </button>
                       </div>
-                      <span>${newData.total}</span>
+                      <span>€{newData.total}</span>
                     </div>
                   ) : (
                     ""

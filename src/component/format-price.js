@@ -1,7 +1,7 @@
 const FormatPrice = ({ price }) => {
-    return Intl.NumberFormat("en-US", {
+    return Intl.NumberFormat("de-DE", {
       style: "currency",
-      currency: "USA",
+      currency: "EUR",
       maximumFractionDigits: 2,
     }).format(price);
   };

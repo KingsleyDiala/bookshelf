@@ -1,5 +1,5 @@
-import { signOut } from "firebase/auth";
-import { useState } from "react";
+import { json, useNavigate } from "react-router-dom";
+import { useEffect, useId, useState } from "react";
 import { Navbar } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
 import { CgShoppingBag } from "react-icons/cg";
@@ -8,16 +8,21 @@ import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { MdOutlineClose } from "react-icons/md";
 import Drawer from "react-modern-drawer";
-import { auth } from "../../firebase";
 import Cart from "../cart";
 import Confirm from "../confirm";
 import { useAllContext } from "../context/context";
 
 const Header = ({ headers }) => {
-  const { executeScroll, cart, setCart, price, setQuery, admin } = useAllContext();
+  const { executeScroll, cart, setCart, price, setQuery, admin, logOut } = useAllContext();
   const [fix, setFix] = useState(false);
   const [search, setSearch] = useState(false);
   const [signOutMessage, setSignOutMessage] = useState("");
+  const navigate = useNavigate();
+  const [auth, setAuth] = useState(null);
+
+  useEffect(() => {
+    setAuth(JSON.parse(window.sessionStorage.getItem("user")));
+  }, [window.sessionStorage.length]);
 
   function setFixed() {
     if (window.scrollY >= 100) {
@@ -60,13 +65,8 @@ const Header = ({ headers }) => {
   let cartItem = cart === null ? 0 : cart.length;
 
   const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        setSignOutMessage("sign out successful");
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    logOut();
+    navigate("/");
   };
 
   const baseClass = `${fix ? "header navbar_fixed" : "header"} ${
@@ -77,7 +77,7 @@ const Header = ({ headers }) => {
     headers === "manage-book" ? "manage-book" : ""
   } ${search ? "search" : ""} ${
     headers === "add-book" ? "add-book" : ""
-  }`.trim();
+    }`.trim();
 
   return (
     <header className={baseClass}>
@@ -103,7 +103,7 @@ const Header = ({ headers }) => {
                 <input
                   type="text"
                   placeholder="Suchen Sie Ihr Buch hier"
-                  onClick={(e) =>  executeScroll()}
+                  onClick={(e) => executeScroll()}
                   onChange={(e) => setQuery(e.target.value)}
                 />
               </form>
@@ -137,7 +137,7 @@ const Header = ({ headers }) => {
                     <li>Alle Bücher</li>
                   </Link>
                   <li>{signOutMessage}</li>
-                  {admin && (
+                  {auth ? (
                     <>
                       <Link to="/add-book">
                         <li>Buch hinzufügen</li>
@@ -152,6 +152,16 @@ const Header = ({ headers }) => {
                         >
                           <span>Abmelden</span>
                         </button>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li>
+                        <Link to='/login'>
+                          <button className="button button__primary">
+                            <span>Anmelden</span>
+                          </button>
+                        </Link>
                       </li>
                     </>
                   )}

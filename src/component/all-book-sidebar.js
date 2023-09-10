@@ -10,7 +10,7 @@ const AllBookSidebar = () => {
     let newVal = data.map((curElem) => {
       return curElem[property];
     });
-    return (newVal = ["all", ...new Set(newVal)]);
+    return (newVal = ["Alle", ...new Set(newVal)]);
   };
 
   // WE NEED UNIQUE DATA
@@ -28,14 +28,14 @@ const AllBookSidebar = () => {
           <input
             type="text"
             name="text"
-            placeholder="Search"
+            placeholder="Suche"
             value={text}
             onChange={updateFilterValue}
           />
         </form>
       </div>
       <div className="filter__item">
-        <h3 className="filter--title">Category</h3>
+        <h3 className="filter--title">Genre</h3>
         <div className="filter__item--category">
           {categoryData.map((curElem, i) => {
             return (
@@ -53,22 +53,9 @@ const AllBookSidebar = () => {
           })}
         </div>
       </div>
+      
       <div className="filter__item">
-        <h3 className="filter--title">author</h3>
-        <form action="#">
-          <select name="author" id="author" onClick={updateFilterValue}>
-            {authorData.map((curElem, index) => {
-              return (
-                <option key={index} value={curElem} name="author">
-                  {curElem}
-                </option>
-              );
-            })}
-          </select>
-        </form>
-      </div>
-      <div className="filter__item">
-        <h3 className="filter--title">Price</h3>
+        <h3 className="filter--title">Preis</h3>
         <p className="amount">
           <FormatPrice price={price} />
         </p>
