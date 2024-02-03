@@ -7,10 +7,13 @@ import {
 import { useAllContext } from "./context/context";
 import { useFilterContext } from "./context/filter_context";
 import OpenModal from "./open-modal";
+import { useNavigate } from "react-router-dom";
+
 
 const BookListView = () => {
   const { filter_books } = useFilterContext();
   const { cart, addToCart, handleChange, handleRemove } = useAllContext();
+  const navigate = useNavigate();
   return (
     <div className="row justify-content-center">
       {filter_books.map((book) => (
@@ -20,15 +23,7 @@ const BookListView = () => {
               <div className="col-5">
                 <div className="book-list__left">
                   <img className="img-fluid" src={book.url} alt={book.title} />
-                  <span className="book-list__discount">
-                    <span className="on-sale">-7%</span>
-                  </span>
                   <ul className="functional-icons">
-                    <li>
-                      <button className="icon" onClick={() => addToCart(book)}>
-                        <AiOutlineShoppingCart />
-                      </button>
-                    </li>
                     <li>
                       <OpenModal
                         book={book}
@@ -47,11 +42,8 @@ const BookListView = () => {
                     {book.subtitle}
                   </p>
                   <p className="book-list__content--author">
-                    By, <span>{book.author}</span>
+                    von: <span>{book.author}</span>
                   </p>
-                  <div className="price">
-                    <span>Price- ${book.price}</span>
-                  </div>
                   <div className="book-list__content--button">
                     {cart.find((data) => data.id === book.id) ? (
                       <>
@@ -86,12 +78,11 @@ const BookListView = () => {
                       </>
                     ) : (
                       <button
-                        onClick={() => addToCart(book)}
+                        onClick={() => navigate(`/books/${book.id}`)}
                         className="button button__primary"
                       >
                         <span className="d-flex align-items-center gap-2">
-                          <AiOutlineShoppingCart />
-                          Add to cart
+                          Mehr erfahren
                         </span>
                       </button>
                     )}

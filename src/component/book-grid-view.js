@@ -7,31 +7,20 @@ import {
 import { useAllContext } from "./context/context";
 import { useFilterContext } from "./context/filter_context";
 import OpenModal from "./open-modal";
+import { useNavigate } from 'react-router-dom'
 
 const BookGridView = () => {
   const { filter_books } = useFilterContext();
   const { cart, addToCart, handleChange, handleRemove } = useAllContext();
-
+  const navigate = useNavigate();
 
   return (
-    <div className="row justify-content-center">
+    <div className="row ">
       {filter_books.map((book) => (
         <div className="col-lg-4 col-sm-6 mb-4" key={book.id}>
           <div className="all-book__item">
             <img className="img-fluid" src={book.url} alt={book.title} />
-            {book.offer === "0" ? (
-              ""
-            ) : (
-              <span className="all-book__item__discount">
-                <span className="on-sale">-{book.offer}%</span>
-              </span>
-            )}
             <ul className="functional-icons">
-              <li>
-                <button className="icon" onClick={() => addToCart(book)}>
-                  <AiOutlineShoppingCart />
-                </button>
-              </li>
               <li>
                 <OpenModal
                   book={book}
@@ -42,25 +31,24 @@ const BookGridView = () => {
               </li>
             </ul>
             <div className="all-book__item__bottom">
-              <h3 className="all-book__item__bottom--title">{book.title}</h3>
-              <p className="all-book__item__bottom--subtitle">
-                {book.subtitle}
+              <h3
+                style={{ marginTop: "10px" }}
+                className="all-book__item__bottom--title"
+              >
+                {book.title}
+              </h3>
+              <p
+                style={{ marginTop: "10px" }}
+                className="all-book__item__bottom--subtitle"
+              >
+                {book.subtitle.substring(0, 70)}
               </p>
-              <p className="all-book__item__bottom--author">
+              <p
+                style={{ marginTop: "20px" }}
+                className="all-book__item__bottom--author"
+              >
                 Von: <span>{book.author}</span>
               </p>
-              <div className="price">
-                Price:{" "}
-                {parseInt(book.price) === book.offerPrice ? (
-                  <>
-                    <span>${book.price}</span>
-                  </>
-                ) : (
-                  <>
-                    <del>${book.price}</del> <span>${book.offer}</span>
-                  </>
-                )}
-              </div>
               <div className="all-book__item__bottom--button">
                 {cart.find((data) => data.id === book.id) ? (
                   <>
@@ -90,14 +78,8 @@ const BookGridView = () => {
                     )}
                   </>
                 ) : (
-                  <button
-                    onClick={() => addToCart(book)}
-                    className="button button__primary"
-                  >
-                    <span>
-                      <AiOutlineShoppingCart />
-                      Warenkorb
-                    </span>
+                  <button onClick={() => navigate(`/books/${book.id}`)} className="button button__primary">
+                    <span>Mehr erfahren</span>
                   </button>
                 )}
               </div>

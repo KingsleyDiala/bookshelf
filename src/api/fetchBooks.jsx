@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { BOOKS_QUERY } from '../queries';
 import { useAllContext } from '../component/context/context';

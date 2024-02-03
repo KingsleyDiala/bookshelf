@@ -16,6 +16,7 @@ export const ContextProvider = ({ children }) => {
     const [cart, setCart] = useState(getLocalStorage());
     const [price, setPrice] = useState(0);
     const [allBooks, setAllBooks] = useState([]);
+    const [allComments, setAllComments] = useState([]);
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState([]);
@@ -44,6 +45,11 @@ export const ContextProvider = ({ children }) => {
   
   const handleRemoveBook = (id) => {
     const arr = allBooks.filter((item) => item.id !== id);
+    setAllBooks([]);
+  };
+
+  const handleRemoveComment = (id) => {
+    const arr = allComments.filter((item) => item.id !== id);
     setAllBooks([]);
   };
   
@@ -110,8 +116,11 @@ export const ContextProvider = ({ children }) => {
             addToCart,
             handleChange,
             handleRemoveBook,
+            handleRemoveComment,
             handleRemove,
             allBooks,
+            allComments,
+            setAllComments,
             setAllBooks,
             setCart,
             setQuery,

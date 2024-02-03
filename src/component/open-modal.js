@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import {
   AiOutlineClose,
   AiOutlineDelete,
   AiOutlineMinus,
   AiOutlinePlus,
-  AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { MdZoomOutMap } from "react-icons/md";
 import { useAllContext } from "./context/context";
@@ -14,6 +14,7 @@ const OpenModal = ({ book, handleRemove, handleChange, addToCart }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const navigate = useNavigate();
 
   const { cart } = useAllContext();
 
@@ -43,37 +44,37 @@ const OpenModal = ({ book, handleRemove, handleChange, addToCart }) => {
             </div>
             <div className="col-lg-6">
               <p className="description">{book.desc}</p>
-              <ul>
+              <ul
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                }}
+              >
                 <li>
                   <span>Genres</span>: {book.genres}
                 </li>
                 <li>
-                  <span>Author</span>: {book.author}
+                  <span>Autor</span>: {book.author}
                 </li>
                 <li>
-                  <span>Language</span>: {book.language}
+                  <span>Sprache</span>: {book.language}
                 </li>
                 {book.pages === "" ? (
                   ""
                 ) : (
                   <li>
-                    <span>Total Pages</span>: {book.pages}
+                    <span>Seiten</span>: {book.pages}
                   </li>
                 )}
                 <li>
-                  <span>Price</span>: ${book.price}
+                  <span>Herausgeber</span>: {book.publisher}
                 </li>
                 <li>
-                  <span>Offer Price</span>: ${book.offerPrice}
-                </li>
-                <li>
-                  <span>Publisher</span>: {book.publisher}
-                </li>
-                <li>
-                  <span>Published</span>: {book.publishedDate}
+                  <span>Veröffentlicht</span>: {book?.publishedDate || "N/A"}
                 </li>
                 {book.isbn === "" ? (
-                  ""
+                  "N/A"
                 ) : (
                   <li>
                     <span>ISBN</span>: {book.isbn}
@@ -108,14 +109,12 @@ const OpenModal = ({ book, handleRemove, handleChange, addToCart }) => {
                   )}
                 </>
               ) : (
-                <button
-                  onClick={() => addToCart(book)}
+                  <button
+                    style={{marginTop: '30px'}}
+                  onClick={() => navigate(`/books/${book.id}`)}
                   className="button button__primary w-100 mt-3"
                 >
-                  <span>
-                    <AiOutlineShoppingCart />
-                    Warenkorb
-                  </span>
+                  <span>Mehr erfahren</span>
                 </button>
               )}
             </div>

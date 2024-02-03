@@ -38,6 +38,20 @@ export const USERS_QUERY = gql`
 `;
 
 
+export const COMMENTS_QUERY = gql`
+  query Comments {
+    comments {
+      author
+      bookId
+      content
+      createdAt
+      id
+      updatedAt
+    }
+  }
+`;
+
+
 
 export const CREATE_NEW_BOOK = gql`
   mutation CreateBook(
@@ -96,9 +110,40 @@ export const CREATE_NEW_BOOK = gql`
   }
 `;
 
+export const CREATE_NEW_COMMENT = gql`
+  mutation CreateComment(
+    $author: String!
+    $content: String!
+    $bookId: String!
+  ) {
+    createComment(
+      data: {
+        author: $author
+        content: $content
+        bookId: $bookId
+      }
+    ) {
+      author
+      bookId
+      content
+      createdAt
+      id
+      updatedAt
+    }
+  }
+`;
+
 export const PUBLISH_BOOK = gql`
   mutation PublishBook($bookId: ID!) {
     publishBook(where: { id: $bookId }, to: PUBLISHED) {
+      id
+    }
+  }
+`;
+
+export const PUBLISH_COMMENT= gql`
+  mutation PublishComment($commentId: ID!) {
+    publishComment(where: { id: $commentId }, to: PUBLISHED) {
       id
     }
   }
@@ -132,6 +177,14 @@ export const BOOK_QUERY = gql`
 export const UNPUBLISH_BOOK = gql`
   mutation UnpublishBook($bookId: ID!) {
     unpublishBook(where: { id: $bookId }, from: PUBLISHED) {
+      id
+    }
+  }
+`;
+
+export const UNPUBLISH_COMMENT = gql`
+  mutation UnpublishComment($commentId: ID!) {
+    unpublishComment(where: { id: $commentId }, from: PUBLISHED) {
       id
     }
   }
@@ -192,6 +245,27 @@ export const UPDATE_BOOK = gql`
       offer
       country
       id
+    }
+  }
+`;
+
+export const UPDATE_COMMENT = gql`
+  mutation UpdateComment(
+    $author: String
+    $content: String
+    $bookId: String
+    $id: ID!
+  ) {
+    updateComment(
+      where: { id: $id }
+      data: { author: $author, content: $content, bookId: $bookId }
+    ) {
+      author
+      bookId
+      content
+      createdAt
+      id
+      updatedAt
     }
   }
 `;

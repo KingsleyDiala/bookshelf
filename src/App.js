@@ -5,9 +5,11 @@ import ManageBooks from "./component/pages/manage-book";
 import Update from "./component/pages/update";
 import Home from "./component/pages/homepage";
 import AllBooks from "./component/pages/all-books";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import BookDetails from "./component/pages/book-details";
 import FetchBooks from "./api/fetchBooks";
 import FetchUser from "./api/fetchUser";
+import FetchComments from "./api/fetchComments";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -23,7 +25,8 @@ function App() {
   return (
     <>
       <FetchUser />
-        <FetchBooks />
+      <FetchBooks />
+      <FetchComments />
         <BrowserRouter>
             <ScrollToTop />
             <Routes>
@@ -33,6 +36,7 @@ function App() {
               <Route path="/manage-book" element={<ManageBooks />} />
               <Route path="/update/:id" element={<Update />} />
               <Route path="/all-books" element={<AllBooks />} />
+              <Route path="/books/:id" element={<BookDetails />} />
             </Routes>
         </BrowserRouter>
     </>

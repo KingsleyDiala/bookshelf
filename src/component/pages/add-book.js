@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Footer from "../global/footer";
 import { ProgressBar } from "react-bootstrap";
-import { CREATE_NEW_BOOK, PUBLISH_BOOK, BOOKS_QUERY } from "../../queries";
-import { useMutation, useQuery } from "@apollo/client";
+import { CREATE_NEW_BOOK, PUBLISH_BOOK } from "../../queries";
+import { useMutation } from "@apollo/client";
 import { useAllContext } from "../context/context";
 
 
@@ -34,8 +34,6 @@ const AddBook = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-
 
 
   const onSubmit = async (formData, e) => {
@@ -166,6 +164,10 @@ const AddBook = () => {
                     placeholder="Buchbeschreibung"
                   />
                   {errors.description && <p>Beschreibung ist erforderlich</p>}
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="add-book__input">
                   <label htmlFor="author">Autor Name</label>
                   <input
                     {...register("author", { required: true })}
@@ -174,10 +176,6 @@ const AddBook = () => {
                     placeholder="Autor Name"
                   />
                   {errors.author && <p>Autor ist erforderlich</p>}
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="add-book__input">
                   <label htmlFor="publisher">Herausgeber Name</label>
                   <input
                     {...register("publisher")}
@@ -240,22 +238,7 @@ const AddBook = () => {
                     placeholder="Sprache"
                   />
                   {errors.language && <p>Sprache ist erforderlich</p>}
-                  <label htmlFor="price">Preis</label>
-                  <input
-                    {...register("price", { required: false })}
-                    id="price"
-                    type="number"
-                    placeholder="Preis"
-                  />
-                  {errors.price && <p>Preis ist erforderlich</p>}
-                  <label htmlFor="offer">Preis Angebot</label>
-                  <input
-                    {...register("offer", { required: false })}
-                    id="offer"
-                    type="number"
-                    placeholder="Angebot"
-                  />
-                  {errors.offer && <p>Angebote ist erforderlich</p>}
+
                   <div className="text-center mt-4">
                     <button
                       disabled={perc !== null && perc < 100}

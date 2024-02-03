@@ -45,3 +45,19 @@
     cursor: pointer;
   }
 }
+
+.delete_comment_button {
+  width: "40px";
+  height: "40px";
+  border-radius: "10px";
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+  cursor: pointer;
+  &:hover {
+    color: red;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}

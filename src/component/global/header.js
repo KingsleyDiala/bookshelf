@@ -111,10 +111,6 @@ const Header = ({ headers }) => {
             <div className="header__call">
               <FiPhoneCall /> <a href="tel:01234567890">015219330138</a>
             </div>
-            <button className="header__cart-btn" onClick={cartDrawer}>
-              <CgShoppingBag />
-              <span>{cart === null ? 0 : cart.length}</span>
-            </button>
             <Drawer
               open={headerOpen}
               onClose={headerDrawer}
@@ -168,56 +164,7 @@ const Header = ({ headers }) => {
                 </ul>
               </div>
             </Drawer>
-            <Drawer
-              open={cartOpen}
-              onClose={cartDrawer}
-              direction="right"
-              className=" drawer"
-              size={450}
-            >
-              {cartItem === 0 ? (
-                <div className="cart">
-                  <div className="row">
-                    <div className="section-title-center text-center">
-                      <div className="cart__close" onClick={cartDrawer}>
-                        <MdOutlineClose />
-                      </div>
-                      <h2 className="fs-5">Keine Artikel in Ihrem Warenkorb</h2>
-                      <div className="section-divider divider-triangle"></div>
-                    </div>
-                  </div>
-                  <div className="cart__empty">
-                    <p>
-                      Sie haben noch nichts in Ihren Warenkorb gelegt. Fügen Sie
-                      die Bücher, die Sie mögen.
-                    </p>
-                    <AiOutlineShoppingCart />
-                  </div>
-                  <div className="cart__confirm">
-                    <button className="cart__btn-offline" disabled>
-                      Confirm
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <Cart cartDrawer={cartDrawer} confirmBook={confirmBook} />
-              )}
-            </Drawer>
-            <Drawer
-              open={confirm}
-              onClose={confirmBook}
-              direction="right"
-              className=" drawer"
-              size={450}
-            >
-              <Confirm
-                price={price}
-                backToCart={backToCart}
-                setConfirm={setConfirm}
-                cart={cart}
-                setCart={setCart}
-              />
-            </Drawer>
+            
           </Navbar>
         </div>
       </div>

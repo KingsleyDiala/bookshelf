@@ -1,6 +1,5 @@
 import { useAllContext } from "./context/context";
 import { useFilterContext } from "./context/filter_context";
-import FormatPrice from "./format-price";
 
 const AllBookSidebar = () => {
   const { allBooks } = useAllContext();
@@ -15,10 +14,9 @@ const AllBookSidebar = () => {
 
   // WE NEED UNIQUE DATA
   const categoryData = getUniqueData(allBooks, "category");
-  const authorData = getUniqueData(allBooks, "author");
 
   const {
-    filters: { text, category, price, maxPrice, minPrice },
+    filters: { text, category },
     updateFilterValue,
   } = useFilterContext();
   return (
@@ -52,22 +50,6 @@ const AllBookSidebar = () => {
             );
           })}
         </div>
-      </div>
-      
-      <div className="filter__item">
-        <h3 className="filter--title">Preis</h3>
-        <p className="amount">
-          <FormatPrice price={price} />
-        </p>
-        <input
-          type="range"
-          name="price"
-          className="price"
-          min={minPrice}
-          max={maxPrice}
-          value={price}
-          onChange={updateFilterValue}
-        />
       </div>
     </div>
   );

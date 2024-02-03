@@ -64,7 +64,7 @@ const Update = () => {
   }
   return (
     <>
-      <Header />
+      <Header headers='classic' />
       <div className="add-book section-padding">
         <div className="container">
           <form>
@@ -73,11 +73,7 @@ const Update = () => {
                 <div className="add-book__input">
                   <div className="add-book__input--image">
                     <label htmlFor="file" className="mt-0 mb-2">
-                      <img
-                        className="img-fluid"
-                        src={updateData?.url}
-                        alt=""
-                      />
+                      <img className="img-fluid" src={updateData?.url} alt="" />
                     </label>
                   </div>
                   <label htmlFor="title">Buchtitel</label>
@@ -137,6 +133,10 @@ const Update = () => {
                       })
                     }
                   />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="add-book__input">
                   <label htmlFor="author">Autor Name</label>
                   <input
                     id="author"
@@ -151,10 +151,6 @@ const Update = () => {
                       })
                     }
                   />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="add-book__input">
                   <label htmlFor="publisher">Herausgeber Name</label>
                   <input
                     id="publisher"
@@ -250,39 +246,6 @@ const Update = () => {
                       setData({
                         ...data,
                         language: e.target.value,
-                      })
-                    }
-                  />
-                  <label htmlFor="price">Preis</label>
-                  <input
-                    id="price"
-                    type="text"
-                    placeholder="Preis"
-                    defaultValue={updateData?.price}
-                    autoComplete="off"
-                    onChange={(e) =>
-                      setData({
-                        ...data,
-                        price: parseFloat(e.target.value),
-                      })
-                    }
-                  />
-                  <label htmlFor="offer">Angebot</label>
-                  <input
-                    id="offer"
-                    type="text"
-                    placeholder="Angebot"
-                    defaultValue={updateData?.offer}
-                    autoComplete="off"
-                    onChange={(e) =>
-                      setData({
-                        ...data,
-                        offer: parseFloat(e.target.value),
-                        offerPrice: Math.round(
-                          parseFloat(updateData?.price) -
-                            parseFloat(updateData?.price) *
-                              (parseFloat(e.target.value) / 100)
-                        ),
                       })
                     }
                   />

@@ -23,24 +23,7 @@ const AllBookNav = () => {
           <HiViewList className="icon" />
         </button>
       </div>
-      <p>{`${filter_books.length} Product Available`}</p>
-
-      <div className="sort-selection">
-        <form action="#">
-          <label htmlFor="sort"></label>
-          <select
-            name="sort"
-            id="sort"
-            className="sort-selection--style"
-            onClick={sorting}
-          >
-            <option value="lowest">Preis(niedrigste)</option>
-            <option value="highest">Preis(höchste)</option>
-            <option value="a-z">(a-z)</option>
-            <option value="z-a">(z-a)</option>
-          </select>
-        </form>
-      </div>
+      <p>{`${filter_books.length} Bücher verfügbar`}</p>
     </div>
   );
 };
