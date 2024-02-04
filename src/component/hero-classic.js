@@ -11,8 +11,7 @@ const HeroClassic = () => {
             Kein Freund ist so treu wie ein Buch
           </h1>
           <p className="mb-5 fs-5">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad harum
-            quibusdam, assumenda quia explicabo.
+
           </p>
           <input
             type="text"
