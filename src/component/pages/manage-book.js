@@ -67,7 +67,6 @@ const ManageBooks = ({
                     <tr>
                       <th>Bilder</th>
                       <th>Buch Name</th>
-                      <th>Preis</th>
                       <th>Update</th>
                       <th>Archiviren</th>
                     </tr>
@@ -85,18 +84,6 @@ const ManageBooks = ({
                           </td>
                           <td>
                             <span>{allBook.title}</span>
-                          </td>
-                          <td>
-                            {parseInt(allBook.price) === allBook.offer ? (
-                              <>
-                                <span>€{allBook.price}</span>
-                              </>
-                            ) : (
-                              <>
-                                <del>€{allBook.price}</del>{" "}
-                                <span>€{allBook.offerPrice}</span>
-                              </>
-                            )}
                           </td>
                           <td>
                             <Link className="icon" to={`/update/${allBook.id}`}>

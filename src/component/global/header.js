@@ -108,9 +108,6 @@ const Header = ({ headers }) => {
                 />
               </form>
             </div>
-            <div className="header__call">
-              <FiPhoneCall /> <a href="tel:01234567890">015219330138</a>
-            </div>
             <Drawer
               open={headerOpen}
               onClose={headerDrawer}

@@ -30,13 +30,6 @@ const Footer = () => {
               <div className="footer__top--icon">
                 <IoIosHelpBuoy />
               </div>
-              <div className="footer__top--info">
-                <h3>Brauchen Sie Hilfe?</h3>
-                <p>
-                  Bitte rufen Sie uns an unter{" "}
-                  <a href="tel:0152 19330138">0152 19330138</a>
-                </p>
-              </div>
             </div>
           </div>
         </div>
